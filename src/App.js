@@ -20,6 +20,10 @@ class App extends Component {
     });
   };
 
+  clearDisplay = () => {
+
+  }
+
   runCalculation = () => {
 
   }
@@ -27,52 +31,30 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <form>
-          <table>
-            <thead>
-              <tr>
-                <td colSpan="4">
-                  <input className="calculator__display" 
-                  onChange={this.handleInputChange}
-                  value={this.state.displayValue}/>
-                </td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colSpan="3">Clear</td>
-                <td>%</td>
-              </tr>
-              <tr>
-                <td><span onClick={this.updateDisplay('7')}>7</span></td>
-                <td><span onClick={this.updateDisplay('8')}>8</span></td>
-                <td><span onClick={this.updateDisplay('9')}>9</span></td>
-                <td><span onClick={this.updateDisplay('x')}>x</span></td>
-              </tr>
-              <tr>
-                <td><span onClick={this.updateDisplay('4')}>4</span></td>
-                <td><span onClick={this.updateDisplay('5')}>5</span></td>
-                <td><span onClick={this.updateDisplay('6')}>6</span></td>
-                <td><span onClick={this.updateDisplay('+')}>+</span></td>
-              </tr>
-              <tr>
-                <td><span onClick={this.updateDisplay('1')}>1</span></td>
-                <td><span onClick={this.updateDisplay('2')}>2</span></td>
-                <td><span onClick={this.updateDisplay('3')}>3</span></td>
-                <td><span onClick={this.updateDisplay('-')}>-</span></td>
-              </tr>
-              <tr>
-                <td colSpan="3"><span onClick={this.updateDisplay('0')}>0</span></td>
-                <td><span onClick={this.runCalculation}>=</span></td>
-              </tr>
-              <tr><td></td><td></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr><td></td><td></td></tr>
-
-
-            </tbody>
-          </table>
-        </form>
+        <div id="calc">
+          <div>
+            <input className="calculator__display" 
+            onChange={this.handleInputChange}
+            value={this.state.displayValue}/>
+          </div>
+          <div><span onClick={this.clearDisplay()}>Clear</span></div>
+          <div><span onClick={this.updateDisplay('/')}>÷</span></div>
+          <div><span onClick={this.updateDisplay('7')}>7</span></div>
+          <div><span onClick={this.updateDisplay('8')}>8</span></div>
+          <div><span onClick={this.updateDisplay('9')}>9</span></div>
+          <div><span onClick={this.updateDisplay('*')}>x</span></div>
+          <div><span onClick={this.updateDisplay('4')}>4</span></div>
+          <div><span onClick={this.updateDisplay('5')}>5</span></div>
+          <div><span onClick={this.updateDisplay('6')}>6</span></div>
+          <div><span onClick={this.updateDisplay('+')}>+</span></div>
+          <div><span onClick={this.updateDisplay('1')}>1</span></div>
+          <div><span onClick={this.updateDisplay('2')}>2</span></div>
+          <div><span onClick={this.updateDisplay('3')}>3</span></div>
+          <div><span onClick={this.updateDisplay('-')}>-</span></div>
+          <div><span onClick={this.updateDisplay('0')}>0</span></div>
+          <div><span onClick={this.updateDisplay('.')}>.</span></div>
+          <div><span onClick={this.runCalculation()}>=</span></div>
+        </div>
       </div>
     );
   }

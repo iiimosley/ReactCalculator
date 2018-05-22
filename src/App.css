@@ -2,20 +2,39 @@
   text-align: center;
 }
 
-.App table {
+#calc {
+  display: grid;
+  max-width: 30rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: .3em;
   padding: .5rem;
   margin: 2rem auto;
   font-size: 2rem;
-
   background: white;
 }
 
-.App table td {
-  padding: .5rem;
+#calc>div {
+  padding: .5em;
 }
 
-.calculator__display {
+#calc>div:first-child {
+  grid-column: 1 / 5;
+  grid-row: 1;
+}
+
+#calc>div:nth-child(2) {
+  grid-column: 1 / 4;
+  grid-row: 2;
+}
+
+#calc>div:nth-last-child(3) {
+  grid-column: 1 / 3;
+  grid-row: 6;
+}
+
+/* .calculator__display {
   font-size: 2.5rem;
   text-align: right;
   border: 0;
-}
+} */
