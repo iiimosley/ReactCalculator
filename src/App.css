@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+}
+
+.App table {
+  padding: .5rem;
+  margin: 2rem auto;
+  font-size: 2rem;
+
+  background: white;
+}
+
+.App table td {
+  padding: .5rem;
+}
+
+.calculator__display {
+  font-size: 2.5rem;
+  text-align: right;
+  border: 0;
+}
