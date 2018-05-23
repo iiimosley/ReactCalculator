@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 
+
 class App extends Component {
   state = {
     equation: [],
     displayValue: '',
-    ops: {
+    opSym: {
       '÷': '/',
       'x': '*',
       '+': '+',
@@ -13,7 +14,12 @@ class App extends Component {
     }
   }
 
+  isSelected = val => val.classList.contains('selectOp');
+
   updateDisplay = value => _evt => {
+    if ([...document.querySelectorAll('.operator')].some(this.isSelected)){
+      console.log('registers op selected');
+    }
     this.setState(prevState => ({
       displayValue: `${prevState.displayValue}${value}`,
     }));
