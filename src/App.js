@@ -41,20 +41,28 @@ class App extends Component {
     }));
   };
 
-  toggleOperator = e => {
-    [...document.querySelectorAll('.operator')].map(op => op.innerText === e.target.innerText ? op.classList.add('selectOp') : op.classList.remove('selectOp'));
-  }
-
-  setOperator = evt => {
-    this.toggleOperator(evt);
-  }
-
+  
   runCalculation = () => {
     this.setState(prevState => ({
       displayValue: eval(`${this.state.equation.map(val => +val ? +val : val).join('')}${prevState.displayValue}`),
     }));
     console.log(eval(`${this.state.equation.map(val=> +val ? +val : val).join('')}${this.state.displayValue}`));
+    this.setState({equation: []});
   }
+  
+  toggleOperator = e => {
+    [...document.querySelectorAll('.operator')].map(op => op.innerText === e.target.innerText ? op.classList.add('selectOp') : op.classList.remove('selectOp'));
+  }
+
+  setOperator = evt => {
+    if(this.state.equation){
+      this.runCalculation();
+      this.toggleOperator(evt);
+    } else {
+      this.toggleOperator(evt);
+    }
+  }
+
 
   render() {
     return (
