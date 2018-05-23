@@ -51,7 +51,7 @@ class App extends Component {
   }
 
   runCalculation = () => {
-
+    console.log((`${this.state.equation.map(val=> +val ? +val : val).join('')}${this.state.displayValue}`));
   }
 
   render() {
