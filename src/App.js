@@ -41,8 +41,12 @@ class App extends Component {
     }));
   };
 
+  toggleOperator = e => {
+    [...document.querySelectorAll('.operator')].map(op => op.innerText === e.target.innerText ? op.classList.add('selectOp') : op.classList.remove('selectOp'));
+  }
+
   setOperator = evt => {
-    [...document.querySelectorAll('.operator')].map(op => op.innerText === evt.target.innerText ? op.classList.add('selectOp') : op.classList.remove('selectOp'));
+    this.toggleOperator(evt);
   }
 
   runCalculation = () => {
