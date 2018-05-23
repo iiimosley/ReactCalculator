@@ -3,16 +3,17 @@ import './App.css';
 
 class App extends Component {
   state = {
+    equation: [],
     displayValue: '',
   }
 
   updateDisplay = value => _evt => {
-    this.setState(prevState=> ({
+    this.setState(prevState => ({
       displayValue: `${prevState.displayValue}${value}`,
     }));
   };
   
-  handleInputChange = (evt) => {
+  handleInputChange = evt => {
     console.log(evt.target.innerText);
     let value = evt.target.value;
     this.setState({
@@ -25,6 +26,16 @@ class App extends Component {
       displayValue: '',
     }));
   };
+
+  setOperator = evt => {
+    let ops = {
+      '÷': '/',
+      'x': '*',
+      '+': '+',
+      '-': '-',
+    }
+    console.log(evt.target.innerText);
+  }
 
   runCalculation = () => {
 
@@ -40,22 +51,22 @@ class App extends Component {
             value={this.state.displayValue}/>
           </div>
           <div onClick={this.clearDisplay}>Clear</div>
-          <div onClick={this.updateDisplay('/')}>÷</div>
+          <div className="operator" onClick={this.setOperator}>÷</div>
           <div onClick={this.updateDisplay('7')}>7</div>
           <div onClick={this.updateDisplay('8')}>8</div>
           <div onClick={this.updateDisplay('9')}>9</div>
-          <div onClick={this.updateDisplay('*')}>x</div>
+          <div className="operator" onClick={this.setOperator}>x</div>
           <div onClick={this.updateDisplay('4')}>4</div>
           <div onClick={this.updateDisplay('5')}>5</div>
           <div onClick={this.updateDisplay('6')}>6</div>
-          <div onClick={this.updateDisplay('+')}>+</div>
+          <div className="operator" onClick={this.setOperator}>+</div>
           <div onClick={this.updateDisplay('1')}>1</div>
           <div onClick={this.updateDisplay('2')}>2</div>
           <div onClick={this.updateDisplay('3')}>3</div>
-          <div onClick={this.updateDisplay('-')}>-</div>
+          <div className="operator" onClick={this.setOperator}>-</div>
           <div onClick={this.updateDisplay('0')}>0</div>
           <div onClick={this.updateDisplay('.')}>.</div>
-          <div onClick={this.runCalculation()}>=</div>
+          <div onClick={this.runCalculation}>=</div>
         </div>
       </div>
     );
