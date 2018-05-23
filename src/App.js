@@ -47,9 +47,11 @@ class App extends Component {
     [...document.querySelectorAll('.operator')].map(op => op.classList.remove('selectOp'));
   }
 
+  parseFunc = str => new Function('return ' + str)();
+
   runCalculation = () => {
     this.setState(prevState => ({
-      displayValue: eval(`${this.state.equation.map(val => +val ? +val : val).join('')}${prevState.displayValue}`),
+      displayValue: this.parseFunc(`${this.state.equation.map(val => +val ? +val : val).join('')}${prevState.displayValue}`),
     }));
     this.setState({equation: []});
   }
@@ -59,10 +61,10 @@ class App extends Component {
   }
 
   setOperator = evt => {
-    if(this.state.equation && this.state.displayValue){
-      this.runCalculation();
+    if(!this.state.equation.length && this.state.displayValue){
       this.toggleOperator(evt);
-    } else if (this.state.displayValue) {
+    } else if (this.state.equation.length && this.state.displayValue) {
+      this.runCalculation();
       this.toggleOperator(evt);
     }
   }
