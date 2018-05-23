@@ -3,7 +3,8 @@ import './App.css';
 
 class App extends Component {
   state = {
-    equation: [],
+    cacheValue: '',
+    currentOp: '',
     displayValue: '',
     opFunc: {
       '÷': (a,b) => a / b,
@@ -16,8 +17,8 @@ class App extends Component {
   updateDisplay = value => _evt => {
     let thisOp = [...document.querySelectorAll('.selectOp')][0];
     if (thisOp){
-      this.state.equation.push(this.state.displayValue);
-      this.state.equation.push(thisOp.innerText);
+      this.setState({ cacheValue: this.state.displayValue });
+      this.setState({ currentOp: thisOp.innerText })
       thisOp.classList.remove('selectOp');
       this.setState({displayValue: value});
     } else {
@@ -28,7 +29,6 @@ class App extends Component {
   };
   
   handleInputChange = evt => {
-    console.log(evt.target.innerText);
     let value = evt.target.value;
     this.setState({
       displayValue: value,
@@ -39,17 +39,22 @@ class App extends Component {
     this.setState({displayValue: ''});
   };
 
+  clearCache = () => {
+    this.setState({ cacheValue: '' });
+    this.setState({ currentOp: '' });
+  }
+
   clearAll = () => {
     this.clearDisplay();
-    this.setState({equation: []});
+    this.clearCache();
     [...document.querySelectorAll('.operator')].map(op => op.classList.remove('selectOp'));
   }
 
   runCalculation = () => {
     this.setState(prevState => ({
-      displayValue: this.state.opFunc[this.state.equation[1]](+this.state.equation[0], +prevState.displayValue),
+      displayValue: this.state.opFunc[this.state.currentOp](+this.state.cacheValue, +prevState.displayValue),
     }));
-    this.setState({equation: []});
+    this.clearCache();
   }
   
   toggleOperator = e => {
@@ -57,9 +62,9 @@ class App extends Component {
   }
 
   setOperator = evt => {
-    if(!this.state.equation.length && this.state.displayValue){
+    if(!this.state.currentOp && this.state.displayValue){
       this.toggleOperator(evt);
-    } else if (this.state.equation.length && this.state.displayValue) {
+    } else if (this.state.currentOp && this.state.displayValue) {
       this.runCalculation();
       this.toggleOperator(evt);
     }
