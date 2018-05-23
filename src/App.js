@@ -41,6 +41,11 @@ class App extends Component {
     }));
   };
 
+  clearAll = () => {
+    this.clearDisplay();
+    this.setState({equation: []});
+  }
+
   runCalculation = () => {
     this.setState(prevState => ({
       displayValue: eval(`${this.state.equation.map(val => +val ? +val : val).join('')}${prevState.displayValue}`),
