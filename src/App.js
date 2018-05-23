@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-
 class App extends Component {
   state = {
     equation: [],
@@ -14,13 +13,9 @@ class App extends Component {
     }
   }
 
-  // isSelected = val => val.classList.contains('selectOp');
-
   updateDisplay = value => _evt => {
-    // let allOps = [...document.querySelectorAll('.operator')];
     let thisOp = [...document.querySelectorAll('.selectOp')][0];
     if (thisOp){
-      console.log('pushin')
       this.state.equation.push(this.state.displayValue);
       this.state.equation.push(this.state.opSym[thisOp.innerText]);
       thisOp.classList.remove('selectOp');
@@ -41,17 +36,35 @@ class App extends Component {
   };
 
   clearDisplay = () => {
-    this.setState((prevState)=> ({
+    this.setState(prevState => ({
       displayValue: '',
     }));
   };
 
-  setOperator = evt => {
-    [...document.querySelectorAll('.operator')].map(op => op.innerText === evt.target.innerText ? op.classList.add('selectOp') : op.classList.remove('selectOp'));
+  clearAll = () => {
+    this.clearDisplay();
+    this.setState({equation: []});
+    [...document.querySelectorAll('.operator')].map(op => op.classList.remove('selectOp'));
   }
 
   runCalculation = () => {
+    this.setState(prevState => ({
+      displayValue: eval(`${this.state.equation.map(val => +val ? +val : val).join('')}${prevState.displayValue}`),
+    }));
+    this.setState({equation: []});
+  }
+  
+  toggleOperator = e => {
+    [...document.querySelectorAll('.operator')].map(op => op.innerText === e.target.innerText ? op.classList.add('selectOp') : op.classList.remove('selectOp'));
+  }
 
+  setOperator = evt => {
+    if(this.state.equation && this.state.displayValue){
+      this.runCalculation();
+      this.toggleOperator(evt);
+    } else if (this.state.displayValue) {
+      this.toggleOperator(evt);
+    }
   }
 
   render() {
@@ -64,6 +77,7 @@ class App extends Component {
             value={this.state.displayValue}/>
           </div>
           <div onClick={this.clearDisplay}>Clear</div>
+          <div onClick={this.clearAll}>AC</div>
           <div className="operator" onClick={this.setOperator}>÷</div>
           <div onClick={this.updateDisplay('7')}>7</div>
           <div onClick={this.updateDisplay('8')}>8</div>
