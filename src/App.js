@@ -14,16 +14,15 @@ class App extends Component {
     }
   }
 
-  isSelected = val => val.classList.contains('selectOp');
+  // isSelected = val => val.classList.contains('selectOp');
 
   updateDisplay = value => _evt => {
-    let allOps = [...document.querySelectorAll('.operator')];
-    if (allOps.some(this.isSelected)){
-      let thisOp = [...document.querySelectorAll('.selectOp')][0];
-      console.log('registers op selected', thisOp);
+    // let allOps = [...document.querySelectorAll('.operator')];
+    let thisOp = [...document.querySelectorAll('.selectOp')][0];
+    if (thisOp){
+      console.log('pushin')
       this.state.equation.push(this.state.displayValue);
       this.state.equation.push(this.state.opSym[thisOp.innerText]);
-      console.log(this.state.equation);
       thisOp.classList.remove('selectOp');
       this.setState({displayValue: value});
     } else {
