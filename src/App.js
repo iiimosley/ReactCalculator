@@ -19,10 +19,14 @@ class App extends Component {
   updateDisplay = value => _evt => {
     if ([...document.querySelectorAll('.operator')].some(this.isSelected)){
       console.log('registers op selected');
+      this.state.equation.push(this.state.displayValue);
+      this.state.equation.push(this.state.opSym[[...document.querySelectorAll('.operator')][0].innerText]);
+      console.log(this.state.equation);
+    } else {
+      this.setState(prevState => ({
+        displayValue: `${prevState.displayValue}${value}`,
+      }));
     }
-    this.setState(prevState => ({
-      displayValue: `${prevState.displayValue}${value}`,
-    }));
   };
   
   handleInputChange = evt => {
