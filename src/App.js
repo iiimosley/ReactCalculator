@@ -44,6 +44,7 @@ class App extends Component {
   clearAll = () => {
     this.clearDisplay();
     this.setState({equation: []});
+    [...document.querySelectorAll('.operator')].map(op => op.classList.remove('selectOp'));
   }
 
   runCalculation = () => {
