@@ -1,24 +1,54 @@
 import React, { Component } from 'react';
 import './App.css';
 
+
 class App extends Component {
   state = {
+    equation: [],
     displayValue: '',
+    opSym: {
+      '÷': '/',
+      'x': '*',
+      '+': '+',
+      '-': '-',
+    }
   }
 
+  // isSelected = val => val.classList.contains('selectOp');
+
   updateDisplay = value => _evt => {
-    this.setState(prevState=> ({
-      displayValue: `${prevState.displayValue}${value}`,
-    }));
+    // let allOps = [...document.querySelectorAll('.operator')];
+    let thisOp = [...document.querySelectorAll('.selectOp')][0];
+    if (thisOp){
+      console.log('pushin')
+      this.state.equation.push(this.state.displayValue);
+      this.state.equation.push(this.state.opSym[thisOp.innerText]);
+      thisOp.classList.remove('selectOp');
+      this.setState({displayValue: value});
+    } else {
+      this.setState(prevState => ({
+        displayValue: `${prevState.displayValue}${value}`,
+      }));
+    }
   };
   
-  handleInputChange = (evt) => {
+  handleInputChange = evt => {
     console.log(evt.target.innerText);
     let value = evt.target.value;
     this.setState({
       displayValue: value,
     });
   };
+
+  clearDisplay = () => {
+    this.setState((prevState)=> ({
+      displayValue: '',
+    }));
+  };
+
+  setOperator = evt => {
+    [...document.querySelectorAll('.operator')].map(op => op.innerText === evt.target.innerText ? op.classList.add('selectOp') : op.classList.remove('selectOp'));
+  }
 
   runCalculation = () => {
 
@@ -27,52 +57,30 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <form>
-          <table>
-            <thead>
-              <tr>
-                <td colSpan="4">
-                  <input className="calculator__display" 
-                  onChange={this.handleInputChange}
-                  value={this.state.displayValue}/>
-                </td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colSpan="3">Clear</td>
-                <td>%</td>
-              </tr>
-              <tr>
-                <td><span onClick={this.updateDisplay('7')}>7</span></td>
-                <td><span onClick={this.updateDisplay('8')}>8</span></td>
-                <td><span onClick={this.updateDisplay('9')}>9</span></td>
-                <td><span onClick={this.updateDisplay('x')}>x</span></td>
-              </tr>
-              <tr>
-                <td><span onClick={this.updateDisplay('4')}>4</span></td>
-                <td><span onClick={this.updateDisplay('5')}>5</span></td>
-                <td><span onClick={this.updateDisplay('6')}>6</span></td>
-                <td><span onClick={this.updateDisplay('+')}>+</span></td>
-              </tr>
-              <tr>
-                <td><span onClick={this.updateDisplay('1')}>1</span></td>
-                <td><span onClick={this.updateDisplay('2')}>2</span></td>
-                <td><span onClick={this.updateDisplay('3')}>3</span></td>
-                <td><span onClick={this.updateDisplay('-')}>-</span></td>
-              </tr>
-              <tr>
-                <td colSpan="3"><span onClick={this.updateDisplay('0')}>0</span></td>
-                <td><span onClick={this.runCalculation}>=</span></td>
-              </tr>
-              <tr><td></td><td></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr><td></td><td></td></tr>
-
-
-            </tbody>
-          </table>
-        </form>
+        <div id="calc">
+          <div>
+            <input className="calculator__display" 
+            onChange={this.handleInputChange}
+            value={this.state.displayValue}/>
+          </div>
+          <div onClick={this.clearDisplay}>Clear</div>
+          <div className="operator" onClick={this.setOperator}>÷</div>
+          <div onClick={this.updateDisplay('7')}>7</div>
+          <div onClick={this.updateDisplay('8')}>8</div>
+          <div onClick={this.updateDisplay('9')}>9</div>
+          <div className="operator" onClick={this.setOperator}>x</div>
+          <div onClick={this.updateDisplay('4')}>4</div>
+          <div onClick={this.updateDisplay('5')}>5</div>
+          <div onClick={this.updateDisplay('6')}>6</div>
+          <div className="operator" onClick={this.setOperator}>+</div>
+          <div onClick={this.updateDisplay('1')}>1</div>
+          <div onClick={this.updateDisplay('2')}>2</div>
+          <div onClick={this.updateDisplay('3')}>3</div>
+          <div className="operator" onClick={this.setOperator}>-</div>
+          <div onClick={this.updateDisplay('0')}>0</div>
+          <div onClick={this.updateDisplay('.')}>.</div>
+          <div onClick={this.runCalculation}>=</div>
+        </div>
       </div>
     );
   }
