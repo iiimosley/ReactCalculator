@@ -5,11 +5,11 @@ class App extends Component {
   state = {
     equation: [],
     displayValue: '',
-    opSym: {
-      '÷': '/',
-      'x': '*',
-      '+': '+',
-      '-': '-',
+    opFunc: {
+      '÷': (a,b) => a / b,
+      'x': (a, b) => a * b,
+      '+': (a, b) => a + b,
+      '-': (a, b) => a - b,
     }
   }
 
@@ -17,7 +17,7 @@ class App extends Component {
     let thisOp = [...document.querySelectorAll('.selectOp')][0];
     if (thisOp){
       this.state.equation.push(this.state.displayValue);
-      this.state.equation.push(this.state.opSym[thisOp.innerText]);
+      this.state.equation.push(thisOp.innerText);
       thisOp.classList.remove('selectOp');
       this.setState({displayValue: value});
     } else {
@@ -36,9 +36,7 @@ class App extends Component {
   };
 
   clearDisplay = () => {
-    this.setState(prevState => ({
-      displayValue: '',
-    }));
+    this.setState({displayValue: ''});
   };
 
   clearAll = () => {
@@ -47,11 +45,9 @@ class App extends Component {
     [...document.querySelectorAll('.operator')].map(op => op.classList.remove('selectOp'));
   }
 
-  parseFunc = str => new Function('return ' + str)();
-
   runCalculation = () => {
     this.setState(prevState => ({
-      displayValue: this.parseFunc(`${this.state.equation.map(val => +val ? +val : val).join('')}${prevState.displayValue}`),
+      displayValue: this.state.opFunc[this.state.equation[1]](+this.state.equation[0], +prevState.displayValue),
     }));
     this.setState({equation: []});
   }
