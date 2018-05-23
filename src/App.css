@@ -51,3 +51,8 @@
   font-size: 2.7rem;
   text-align: right;
 }
+
+.selectOp {
+  background: rgb(231, 118, 22) !important;
+  box-shadow: 0 0 .2em rgb(231, 118, 22) !important;
+}

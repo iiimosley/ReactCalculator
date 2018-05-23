@@ -5,6 +5,13 @@ class App extends Component {
   state = {
     equation: [],
     displayValue: '',
+    currentOp: '',
+    ops: {
+      '÷': '/',
+      'x': '*',
+      '+': '+',
+      '-': '-',
+    }
   }
 
   updateDisplay = value => _evt => {
@@ -22,19 +29,24 @@ class App extends Component {
   };
 
   clearDisplay = () => {
-    this.setState(prevState => ({
+    this.setState((prevState)=> ({
       displayValue: '',
     }));
   };
 
   setOperator = evt => {
-    let ops = {
-      '÷': '/',
-      'x': '*',
-      '+': '+',
-      '-': '-',
+    // let clickedOp = evt.target.innerText
+    // this.setState(() => ({ currentOp: clickedOp }));
+    // console.log('current op', this.state.currentOp);
+    if (!evt.target.classList.contains(this.selectOp)){
+      [...document.querySelectorAll('.operator')].forEach(op => {
+        console.log('looped op', op);
+        op.classList.remove('selectOp');
+      });
+      evt.target.classList.add('selectOp');
     }
-    console.log(evt.target.innerText);
+    // [...document.querySelectorAll('.operator')].map(op => op.innerText === evt.target.innerText ? console.log('got class', op.innerText) : console.log('no class', op.innerText));
+    // [...document.querySelectorAll('.operator')].map(op => op.innerText === evt.target.innerText ? op.classList.add(this.selectOp) : op.classList.remove(this.selectOp));
   }
 
   runCalculation = () => {
