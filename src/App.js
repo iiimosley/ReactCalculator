@@ -17,11 +17,15 @@ class App extends Component {
   isSelected = val => val.classList.contains('selectOp');
 
   updateDisplay = value => _evt => {
-    if ([...document.querySelectorAll('.operator')].some(this.isSelected)){
-      console.log('registers op selected');
+    let allOps = [...document.querySelectorAll('.operator')];
+    if (allOps.some(this.isSelected)){
+      let thisOp = [...document.querySelectorAll('.selectOp')][0];
+      console.log('registers op selected', thisOp);
       this.state.equation.push(this.state.displayValue);
-      this.state.equation.push(this.state.opSym[[...document.querySelectorAll('.operator')][0].innerText]);
+      this.state.equation.push(this.state.opSym[thisOp.innerText]);
       console.log(this.state.equation);
+      thisOp.classList.remove('selectOp');
+      this.setState({displayValue: value});
     } else {
       this.setState(prevState => ({
         displayValue: `${prevState.displayValue}${value}`,
