@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-
 class App extends Component {
   state = {
     equation: [],
@@ -14,13 +13,9 @@ class App extends Component {
     }
   }
 
-  // isSelected = val => val.classList.contains('selectOp');
-
   updateDisplay = value => _evt => {
-    // let allOps = [...document.querySelectorAll('.operator')];
     let thisOp = [...document.querySelectorAll('.selectOp')][0];
     if (thisOp){
-      console.log('pushin')
       this.state.equation.push(this.state.displayValue);
       this.state.equation.push(this.state.opSym[thisOp.innerText]);
       thisOp.classList.remove('selectOp');
@@ -41,7 +36,7 @@ class App extends Component {
   };
 
   clearDisplay = () => {
-    this.setState((prevState)=> ({
+    this.setState(prevState => ({
       displayValue: '',
     }));
   };
@@ -51,6 +46,9 @@ class App extends Component {
   }
 
   runCalculation = () => {
+    this.setState(prevState => ({
+      displayValue: eval(`${this.state.equation.map(val => +val ? +val : val).join('')}${prevState.displayValue}`),
+    }));
     console.log(eval(`${this.state.equation.map(val=> +val ? +val : val).join('')}${this.state.displayValue}`));
   }
 
