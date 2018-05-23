@@ -59,10 +59,10 @@ class App extends Component {
   }
 
   setOperator = evt => {
-    if(this.state.equation){
+    if(this.state.equation && this.state.displayValue){
       this.runCalculation();
       this.toggleOperator(evt);
-    } else {
+    } else if (this.state.displayValue) {
       this.toggleOperator(evt);
     }
   }

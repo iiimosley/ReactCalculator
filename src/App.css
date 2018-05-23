@@ -54,9 +54,11 @@
 
 .operator:hover{
   background: rgb(231, 139, 58) !important;
+  color: white !important;
 }
 
 .selectOp {
   background: rgb(231, 118, 22) !important;
   box-shadow: 0 0 .2em rgb(231, 118, 22) !important;
+  color: white !important;
 }
