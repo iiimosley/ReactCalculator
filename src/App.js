@@ -41,12 +41,10 @@ class App extends Component {
     }));
   };
 
-  
   runCalculation = () => {
     this.setState(prevState => ({
       displayValue: eval(`${this.state.equation.map(val => +val ? +val : val).join('')}${prevState.displayValue}`),
     }));
-    console.log(eval(`${this.state.equation.map(val=> +val ? +val : val).join('')}${this.state.displayValue}`));
     this.setState({equation: []});
   }
   
@@ -63,7 +61,6 @@ class App extends Component {
     }
   }
 
-
   render() {
     return (
       <div className="App">
@@ -74,6 +71,7 @@ class App extends Component {
             value={this.state.displayValue}/>
           </div>
           <div onClick={this.clearDisplay}>Clear</div>
+          <div onClick={this.clearAll}>AC</div>
           <div className="operator" onClick={this.setOperator}>÷</div>
           <div onClick={this.updateDisplay('7')}>7</div>
           <div onClick={this.updateDisplay('8')}>8</div>
